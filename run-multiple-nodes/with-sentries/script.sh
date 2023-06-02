@@ -31,7 +31,7 @@ rm -rf nodes
 
 ### On alice's machine
 # initialize chain
-docker run --rm -it -v ./nodes/alice:/root/.titan titand:latest init node-alice --chain-id titan-1 --default-denom tkx >/dev/null
+docker run --rm -it -v ./nodes/alice:/root/.titan titand:latest init node-alice --chain-id titan_90000-1 --default-denom titan >/dev/null
 # create keyring's passphrase
 echo -n password > ./nodes/alice/passphrase.txt
 # create account
@@ -39,7 +39,7 @@ echo $(cat ./nodes/alice/passphrase.txt)$'\n'$(cat ./nodes/alice/passphrase.txt)
 docker run --rm -i -v ./nodes/alice:/root/.titan titand:latest keys add alice --keyring-backend file --keyring-dir /root/.titan/keys --output json > ./nodes/alice/alice_plain.info
 
 ### On bob's machine
-docker run --rm -it -v ./nodes/bob:/root/.titan titand:latest init node-bob --chain-id titan-1 --default-denom tkx >/dev/null
+docker run --rm -it -v ./nodes/bob:/root/.titan titand:latest init node-bob --chain-id titan_90000-1 --default-denom titan >/dev/null
 # create keyring's passphrase
 echo -n password > ./nodes/bob/passphrase.txt
 # create account
@@ -48,28 +48,28 @@ docker run --rm -i -v ./nodes/bob:/root/.titan titand:latest keys add bob --keyr
 
 ### On carol's machine
 # initialize chain
-docker run --rm -it -v ./nodes/carol:/root/.titan titand:latest init node-carol --chain-id titan-1 --default-denom tkx >/dev/null
+docker run --rm -it -v ./nodes/carol:/root/.titan titand:latest init node-carol --chain-id titan_90000-1 --default-denom titan >/dev/null
 
 ### On alice's machine
-# add alice as genesis account with tkx balance
+# add alice as genesis account with titan balance
 cat ./nodes/alice/passphrase.txt | \
 docker run --rm -i -v ./nodes/alice:/root/.titan titand:latest keys show alice --address --keyring-backend file --keyring-dir /root/.titan/keys | \
-xargs -I {} docker run --rm -i -v ./nodes/alice:/root/.titan titand:latest add-genesis-account "{}" 10000tkx
-# alice stakes tkx 
+xargs -I {} docker run --rm -i -v ./nodes/alice:/root/.titan titand:latest add-genesis-account "{}" 10000titan
+# alice stakes titan 
 echo $(cat ./nodes/alice/passphrase.txt)$'\n'$(cat ./nodes/alice/passphrase.txt) | \
-docker run --rm -i -v ./nodes/alice:/root/.titan titand:latest gentx alice 1000tkx --keyring-backend file --keyring-dir /root/.titan/keys --chain-id titan-1 >/dev/null 2>&1
+docker run --rm -i -v ./nodes/alice:/root/.titan titand:latest gentx alice 1000titan --keyring-backend file --keyring-dir /root/.titan/keys --chain-id titan_90000-1 >/dev/null 2>&1
 
 # alice passes genesis.json to bob
 cp ./nodes/alice/config/genesis.json ./nodes/bob/config/genesis.json
 
 ### On bob's machine
-# add bob as genesis account with tkx balance
+# add bob as genesis account with titan balance
 cat ./nodes/bob/passphrase.txt | \
 docker run --rm -i -v ./nodes/bob:/root/.titan titand:latest keys show bob --address --keyring-backend file --keyring-dir /root/.titan/keys | \
-xargs -I {} docker run --rm -i -v ./nodes/bob:/root/.titan titand:latest add-genesis-account "{}" 5000tkx
-# bob stakes tkx
+xargs -I {} docker run --rm -i -v ./nodes/bob:/root/.titan titand:latest add-genesis-account "{}" 5000titan
+# bob stakes titan
 echo $(cat ./nodes/bob/passphrase.txt)$'\n'$(cat ./nodes/bob/passphrase.txt) | \
-docker run --rm -i -v ./nodes/bob:/root/.titan titand:latest gentx bob 1000tkx --keyring-backend file --keyring-dir /root/.titan/keys --chain-id titan-1 >/dev/null 2>&1
+docker run --rm -i -v ./nodes/bob:/root/.titan titand:latest gentx bob 1000titan --keyring-backend file --keyring-dir /root/.titan/keys --chain-id titan_90000-1 >/dev/null 2>&1
 
 # bob sends his generated txs back to alice
 cp ./nodes/bob/config/gentx/gentx-* ./nodes/alice/config/gentx
@@ -88,9 +88,9 @@ cp ./nodes/alice/config/genesis.json ./nodes/carol/config/genesis.json
 
 ### Sentries
 # initialize alice's node
-docker run --rm -it -v ./nodes/alice-sentry:/root/.titan titand:latest init node-alice-sentry --chain-id titan-1 --default-denom tkx >/dev/null
+docker run --rm -it -v ./nodes/alice-sentry:/root/.titan titand:latest init node-alice-sentry --chain-id titan_90000-1 --default-denom titan >/dev/null
 # initialize bob's node
-docker run --rm -it -v ./nodes/bob-sentry:/root/.titan titand:latest init node-bob-sentry --chain-id titan-1 --default-denom tkx >/dev/null
+docker run --rm -it -v ./nodes/bob-sentry:/root/.titan titand:latest init node-bob-sentry --chain-id titan_90000-1 --default-denom titan >/dev/null
 
 ### On alice's sentry node
 # copy the genesis file

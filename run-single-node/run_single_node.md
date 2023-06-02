@@ -26,7 +26,7 @@ $ ./build/titand --help
 rm -rf ./private/.titan
 
 # Init the home dir
-titand init demo --home ./private/.titan --chain-id titan-1 --default-denom tkx
+titand init demo --home ./private/.titan --chain-id titan_90000-1 --default-denom titan
 ```
 
 The initialization creates `.titan` directory under `private/`, which contains:
@@ -68,10 +68,10 @@ $ titand keys list --home private/.titan --keyring-backend test
 ### 2. Make that account become a validator
 ```sh
 # Add alice as genesis account
-$ titand add-genesis-account alice 100000000tkx --home private/.titan --keyring-backend test
+$ titand add-genesis-account alice 100000000titan --home private/.titan --keyring-backend test
 
 # Include bootstrap transactions
-$ titand gentx alice 70000000tkx --home private/.titan --keyring-backend test --chain-id titan-1
+$ titand gentx alice 70000000titan --home private/.titan --keyring-backend test --chain-id titan_90000-1
 
 # Collect genesis transactions
 $ titand collect-gentxs --home private/.titan
@@ -91,13 +91,13 @@ $ export alice=$(titand keys show alice --address --home private/.titan --keyrin
 $ titand q bank balances $alice
 ```
 
-Transfer `1000tkx` to `bob`:
+Transfer `1000titan` to `bob`:
 ```sh
 # Pick a random address for bob
 $ export bob=titan1zkvm385sylhksh5z4ctyzpkx7t360jzev0m5mc
 
 # Choose "yes" when prompted to sign the tx
-$ titand tx bank send $alice $bob 1000tkx --home private/.titan --keyring-backend test --chain-id titan-1
+$ titand tx bank send $alice $bob 1000titan --home private/.titan --keyring-backend test --chain-id titan_90000-1
 
 # Show transaction info
 $ titand q tx <txhash>
