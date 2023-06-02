@@ -1,0 +1,63 @@
+version: '3'
+
+name: titan-multiple-nodes-with-kms
+
+services:
+  validator-alice:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/alice:/root/.titan
+    networks:
+      - net-alice-vpc
+      - net-alice-kms
+    depends_on:
+      - kms-alice
+  sentry-alice:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/alice-sentry:/root/.titan
+    networks:
+      - net-alice-vpc
+      - net-public
+  kms-alice:
+    command: start --config /root/tmkms/tmkms.toml
+    image: tmkms:v0.12.2
+    volumes:
+      - ./nodes/alice-kms:/root/tmkms
+    networks:
+      - net-alice-kms
+
+  validator-bob:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/bob:/root/.titan
+    networks:
+      - net-bob-vpc
+  sentry-bob:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/bob-sentry:/root/.titan
+    networks:
+      - net-bob-vpc
+      - net-public
+    
+  node-carol:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/carol:/root/.titan
+    ports:
+      - 26657:26657
+    networks:
+      - net-public
+
+networks:
+  net-public:
+  net-alice-vpc:
+  net-alice-kms:
+  net-bob-vpc:
+
