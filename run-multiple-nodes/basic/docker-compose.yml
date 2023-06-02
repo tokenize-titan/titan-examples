@@ -1,0 +1,33 @@
+version: '3'
+
+name: titan-multiple-nodes-basic
+
+services:
+  validator-alice:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/alice:/root/.titan
+    networks:
+      - net-public
+
+  validator-bob:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/bob:/root/.titan
+    networks:
+      - net-public
+
+  node-carol:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/carol:/root/.titan
+    ports:
+      - 26657:26657
+    networks:
+      - net-public
+
+networks:
+  net-public:
