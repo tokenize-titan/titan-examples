@@ -1,0 +1,17 @@
+version: '3'
+
+name: titan-single-node
+
+services:
+  validator-alice:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/alice:/root/.titan
+    ports:
+      - 26657:26657
+    networks:
+      - net-public
+
+networks:
+  net-public:
