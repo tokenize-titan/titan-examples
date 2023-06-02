@@ -14,7 +14,7 @@ $ cd examples/run-multiple-nodes/basic/
 $ ./script.sh
 
 # or, to run without rebuilding docker image
-$ ./script.sh NO_BUILD=1
+$ ./script.sh SKIP_BUILD=1
 
 # query
 $ docker run --rm -it --network titan-chain-basic_net-public titand:latest status --node "tcp://node-carol:26657"
