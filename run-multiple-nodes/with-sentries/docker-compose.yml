@@ -1,0 +1,52 @@
+version: '3'
+
+name: titan-multiple-nodes-with-sentries
+
+services:
+  validator-alice:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/alice:/root/.titan
+    networks:
+      - net-alice-vpc
+  sentry-alice:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/alice-sentry:/root/.titan
+    networks:
+      - net-alice-vpc
+      - net-public
+
+  validator-bob:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/bob:/root/.titan
+    networks:
+      - net-bob-vpc
+  sentry-bob:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/bob-sentry:/root/.titan
+    networks:
+      - net-bob-vpc
+      - net-public
+    
+  node-carol:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/carol:/root/.titan
+    ports:
+      - 26657:26657
+    networks:
+      - net-public
+
+networks:
+  net-public:
+  net-alice-vpc:
+  net-bob-vpc:
+
