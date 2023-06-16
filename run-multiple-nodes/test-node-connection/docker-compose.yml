@@ -1,0 +1,50 @@
+version: '3'
+
+name: titan-multiple-nodes-test-node-connection
+
+services:
+  val1:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/val1:/root/.titan
+    networks:
+      - net-public
+
+  val2:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/val2:/root/.titan
+    networks:
+      - net-public
+
+  val3:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/val3:/root/.titan
+    networks:
+      - net-public
+
+  val4:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/val4:/root/.titan
+    networks:
+      - net-public
+
+  explorer:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/explorer:/root/.titan
+    ports:
+      - 1317:1317
+      - 26657:26657
+    networks:
+      - net-public
+
+networks:
+  net-public:
