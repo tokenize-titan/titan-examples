@@ -1,0 +1,75 @@
+version: '3'
+
+name: titan-multiple-chains-with-relayer
+
+services:
+  val1:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/val1:/root/.titan
+    networks:
+      - net-public
+    healthcheck:
+        test: ["CMD", "nc", "-z", "localhost", "26657"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+
+  val2:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/val2:/root/.titan
+    networks:
+      - net-public  
+    healthcheck:
+        test: ["CMD", "nc", "-z", "localhost", "26657"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+  
+  val3:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/val3:/root/.titan
+    networks:
+      - net-public  
+    healthcheck:
+        test: ["CMD", "nc", "-z", "localhost", "26657"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+
+  val4:
+    command: start
+    image: titand:latest
+    volumes:
+      - ./nodes/val4:/root/.titan
+    networks:
+      - net-public  
+    healthcheck:
+        test: ["CMD", "nc", "-z", "localhost", "26657"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+
+  hermes: 
+    command: start
+    image: informalsystems/hermes:1.5.1
+    volumes:
+      - ./nodes/hermes:/home/hermes/.hermes
+    networks:
+      - net-public
+    depends_on:
+      val1:
+        condition: service_healthy
+      val2:
+        condition: service_healthy
+      val3:
+        condition: service_healthy
+      val4:
+        condition: service_healthy
+networks:
+  net-public:
