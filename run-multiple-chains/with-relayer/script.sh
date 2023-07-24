@@ -247,39 +247,31 @@ echo 'create ibc channel...'
 echo 'topology: 90000 <-> 90002 <-> 90003 <-> 90004 <-> 90000'
 
 echo 'connect 90000 to 90002...'
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes \
-  --network titan-multiple-chains-with-relayer_net-public informalsystems/hermes:1.5.1 create \
+docker compose run --rm -i hermes create \
   channel --yes --a-chain titan_90000-1 --b-chain titan_90002-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes \
-  --network titan-multiple-chains-with-relayer_net-public informalsystems/hermes:1.5.1 query \
+docker compose run --rm -i hermes query \
   channels --show-counterparty --chain titan_90000-1
 
 echo 'connect 90002 to 90003...'
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes \
-  --network titan-multiple-chains-with-relayer_net-public informalsystems/hermes:1.5.1 create \
+docker compose run --rm -i hermes create \
   channel --yes --a-chain titan_90002-1 --b-chain titan_90003-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes \
-  --network titan-multiple-chains-with-relayer_net-public informalsystems/hermes:1.5.1 query \
+docker compose run --rm -i hermes query \
   channels --show-counterparty --chain titan_90002-1
 
 echo 'connect 90003 to 90004...'
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes \
-  --network titan-multiple-chains-with-relayer_net-public informalsystems/hermes:1.5.1 create \
+docker compose run --rm -i hermes create \
   channel --yes --a-chain titan_90003-1 --b-chain titan_90004-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes \
-  --network titan-multiple-chains-with-relayer_net-public informalsystems/hermes:1.5.1 query \
+docker compose run --rm -i hermes query \
   channels --show-counterparty --chain titan_90003-1
 
 echo 'connect 90004 to 90000...'
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes \
-  --network titan-multiple-chains-with-relayer_net-public informalsystems/hermes:1.5.1 create \
+docker compose run --rm -i hermes create \
   channel --yes --a-chain titan_90004-1 --b-chain titan_90000-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes \
-  --network titan-multiple-chains-with-relayer_net-public informalsystems/hermes:1.5.1 query \
+docker compose run --rm -i hermes query \
   channels --show-counterparty --chain titan_90004-1
 
 echo 'start up relayer...'

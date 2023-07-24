@@ -9,7 +9,7 @@ services:
     volumes:
       - ./nodes/val1:/root/.titan
     networks:
-      - net-public
+      - net-1
     healthcheck:
         test: ["CMD", "nc", "-z", "localhost", "26657"]
         interval: 30s
@@ -22,7 +22,7 @@ services:
     volumes:
       - ./nodes/val2:/root/.titan
     networks:
-      - net-public  
+      - net-2
     healthcheck:
         test: ["CMD", "nc", "-z", "localhost", "26657"]
         interval: 30s
@@ -35,7 +35,7 @@ services:
     volumes:
       - ./nodes/val3:/root/.titan
     networks:
-      - net-public  
+      - net-3  
     healthcheck:
         test: ["CMD", "nc", "-z", "localhost", "26657"]
         interval: 30s
@@ -48,7 +48,7 @@ services:
     volumes:
       - ./nodes/val4:/root/.titan
     networks:
-      - net-public  
+      - net-4  
     healthcheck:
         test: ["CMD", "nc", "-z", "localhost", "26657"]
         interval: 30s
@@ -61,7 +61,10 @@ services:
     volumes:
       - ./nodes/hermes:/home/hermes/.hermes
     networks:
-      - net-public
+      - net-1
+      - net-2
+      - net-3
+      - net-4
     depends_on:
       val1:
         condition: service_healthy
@@ -73,3 +76,7 @@ services:
         condition: service_healthy
 networks:
   net-public:
+  net-1:
+  net-2:
+  net-3:
+  net-4:
