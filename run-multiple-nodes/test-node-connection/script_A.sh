@@ -31,33 +31,33 @@ rm -rf nodes
 
 ### On val1's machine
 # initialize chain
-docker run --rm -it -v $(pwd)/nodes/val1:/root/.titan titand:latest init val1 --chain-id titan_90000-1 --default-denom titan >/dev/null
+docker run --rm -it -v $(pwd)/nodes/val1:/root/.titand titand:latest init val1 --chain-id titan_18889-1  >/dev/null
 # create keyring's passphrase
 printf password > ./nodes/val1/passphrase.txt
 # create account
 echo $(cat ./nodes/val1/passphrase.txt)$'\n'$(cat ./nodes/val1/passphrase.txt) | \
-docker run --rm -i -v $(pwd)/nodes/val1:/root/.titan titand:latest keys add val1 --keyring-backend file --keyring-dir /root/.titan/keys --output json > ./nodes/val1/val1.info
+docker run --rm -i -v $(pwd)/nodes/val1:/root/.titand titand:latest keys add val1 --keyring-backend file --keyring-dir /root/.titand/keys --output json > ./nodes/val1/val1.info
 
 ### On val2's machine
-docker run --rm -it -v $(pwd)/nodes/val2:/root/.titan titand:latest init val2 --chain-id titan_90000-1 --default-denom titan >/dev/null
+docker run --rm -it -v $(pwd)/nodes/val2:/root/.titand titand:latest init val2 --chain-id titan_18889-1  >/dev/null
 # create keyring's passphrase
 printf password > ./nodes/val2/passphrase.txt
 # create account
 echo $(cat ./nodes/val2/passphrase.txt)$'\n'$(cat ./nodes/val2/passphrase.txt) | \
-docker run --rm -i -v $(pwd)/nodes/val2:/root/.titan titand:latest keys add val2 --keyring-backend file --keyring-dir /root/.titan/keys --output json > ./nodes/val2/val2.info
+docker run --rm -i -v $(pwd)/nodes/val2:/root/.titand titand:latest keys add val2 --keyring-backend file --keyring-dir /root/.titand/keys --output json > ./nodes/val2/val2.info
 
 ### On explorer's machine
 # initialize chain
-docker run --rm -it -v $(pwd)/nodes/explorer:/root/.titan titand:latest init explorer --chain-id titan_90000-1 --default-denom titan >/dev/null
+docker run --rm -it -v $(pwd)/nodes/explorer:/root/.titand titand:latest init explorer --chain-id titan_18889-1  >/dev/null
 
 ### On val1's machine
 # add val1 as genesis account with titan balance
 cat ./nodes/val1/passphrase.txt | \
-docker run --rm -i -v $(pwd)/nodes/val1:/root/.titan titand:latest keys show val1 --address --keyring-backend file --keyring-dir /root/.titan/keys | \
-xargs -I {} docker run --rm -i -v $(pwd)/nodes/val1:/root/.titan titand:latest add-genesis-account "{}" 10000titan
+docker run --rm -i -v $(pwd)/nodes/val1:/root/.titand titand:latest keys show val1 --address --keyring-backend file --keyring-dir /root/.titand/keys | \
+xargs -I {} docker run --rm -i -v $(pwd)/nodes/val1:/root/.titand titand:latest add-genesis-account "{}" 10000tkx
 # val1 stakes titan 
 echo $(cat ./nodes/val1/passphrase.txt)$'\n'$(cat ./nodes/val1/passphrase.txt) | \
-docker run --rm -i -v $(pwd)/nodes/val1:/root/.titan titand:latest gentx val1 1000titan --keyring-backend file --keyring-dir /root/.titan/keys --chain-id titan_90000-1 >/dev/null 2>&1
+docker run --rm -i -v $(pwd)/nodes/val1:/root/.titand titand:latest gentx val1 1000tkx --keyring-backend file --keyring-dir /root/.titand/keys --chain-id titan_18889-1 >/dev/null 2>&1
 
 # val1 passes genesis.json to val2
 cp ./nodes/val1/config/genesis.json ./nodes/val2/config/genesis.json
@@ -65,11 +65,11 @@ cp ./nodes/val1/config/genesis.json ./nodes/val2/config/genesis.json
 ### On val2's machine
 # add val2 as genesis account with titan balance
 cat ./nodes/val2/passphrase.txt | \
-docker run --rm -i -v $(pwd)/nodes/val2:/root/.titan titand:latest keys show val2 --address --keyring-backend file --keyring-dir /root/.titan/keys | \
-xargs -I {} docker run --rm -i -v $(pwd)/nodes/val2:/root/.titan titand:latest add-genesis-account "{}" 5000titan
+docker run --rm -i -v $(pwd)/nodes/val2:/root/.titand titand:latest keys show val2 --address --keyring-backend file --keyring-dir /root/.titand/keys | \
+xargs -I {} docker run --rm -i -v $(pwd)/nodes/val2:/root/.titand titand:latest add-genesis-account "{}" 5000tkx
 # val2 stakes titan
 echo $(cat ./nodes/val2/passphrase.txt)$'\n'$(cat ./nodes/val2/passphrase.txt) | \
-docker run --rm -i -v $(pwd)/nodes/val2:/root/.titan titand:latest gentx val2 1000titan --keyring-backend file --keyring-dir /root/.titan/keys --chain-id titan_90000-1 >/dev/null 2>&1
+docker run --rm -i -v $(pwd)/nodes/val2:/root/.titand titand:latest gentx val2 1000tkx --keyring-backend file --keyring-dir /root/.titand/keys --chain-id titan_18889-1 >/dev/null 2>&1
 
 # val2 sends his generated txs back to val1
 cp ./nodes/val2/config/gentx/gentx-* ./nodes/val1/config/gentx
@@ -79,9 +79,9 @@ cp ./nodes/val2/config/genesis.json ./nodes/val1/config/genesis.json
 
 ### On val1's machine
 # val1 collect all generated transactions into genesis file
-docker run --rm -i -v $(pwd)/nodes/val1:/root/.titan titand:latest collect-gentxs >/dev/null 2>&1
+docker run --rm -i -v $(pwd)/nodes/val1:/root/.titand titand:latest collect-gentxs >/dev/null 2>&1
 # validate the genesis file
-docker run --rm -i -v $(pwd)/nodes/val1:/root/.titan titand:latest validate-genesis >/dev/null
+docker run --rm -i -v $(pwd)/nodes/val1:/root/.titand titand:latest validate-genesis >/dev/null
 
 # val1 distributes genesis file to stakeholders
 cp ./nodes/val1/config/genesis.json ./nodes/val2/config/genesis.json

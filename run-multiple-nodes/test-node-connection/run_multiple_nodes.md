@@ -50,6 +50,6 @@ $ cd examples/run-multiple-nodes/test-node-connection/
 $ ./script_A.sh
 
 # or, to run without rebuilding docker image
-$ ./script.sh SKIP_BUILD=1
+$ ./script_A.sh SKIP_BUILD=1
 
 ```

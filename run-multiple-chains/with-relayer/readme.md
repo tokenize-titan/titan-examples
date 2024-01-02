@@ -2,7 +2,7 @@
 
 2 chain can connect each other via IBC protocol.
 In each chain need to have a light client of other chain. It can verify information from another chain.
-With chain base con cosmos sdk (it already has tendermint client (ibc go) ). To order to communicate with other chain, we need to have a `relayer`. 
+With chain base con cosmos sdk (it already has tendermint client (ibc go) ). To order to communicate with other chain, we need to have a `relayer`.
 
 `relayer` is a program that can relay a packet from one chain to another chain. `relayer` manage an address in each chain to submit transactions on each chain. It listen event from one chain and then send a transaction to another chain. Information in that transaction is verified by light client of that chain. that why relayer is trustless and anyone can run a relayer.
 
@@ -14,7 +14,7 @@ IBC module of cosmossdk support transfer token between chain. it listen on port 
 
 ## IBC denom
 
-when a token is transfer to another chain, it exist in another chain by and ibc id that created by formula 
+when a token is transfer to another chain, it exist in another chain by and ibc id that created by formula
 
 ```
 ibc_denom := 'ibc/' + hash('path' + 'base_denom')
@@ -28,44 +28,44 @@ When token is transferred via multiple hops, the above formula will be applied m
 
 # Multiple chain Scenario setup
 
-run script `./script.sh` to setup 4 chains with chain id: `titan_90000-1`, `titan_90002-1`, `titan_90003-1`, `titan_90004-1`
+run script `./script.sh` to setup 4 chains with chain id: `titan_18889-1`, `titan_90002-1`, `titan_90003-1`, `titan_90004-1`
 
-and one relayer with configured topology : 90000 <-> 90002 <-> 90003 <-> 90004 <-> 90000
+and one relayer with configured topology : 18889 <-> 90002 <-> 90003 <-> 90004 <-> 18889
 
 # Test scenario
 
-## Transfer token from 90000 to 90002
+## Transfer token from 18889 to 90002
 
-1. Send the transaction to transfer token from 90000 to 90002 via relayer
+1. Send the transaction to transfer token from 18889 to 90002 via relayer
 
-check channel connect between 90000 and 90002
+check channel connect between 18889 and 90002
 
 ```shell
-docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query channels --show-counterparty --chain titan_90000-1
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query channels --show-counterparty --chain titan_18889-1
 ```
 
 You will something like this :
 
 ```shell
-titan_90000-1: transfer/channel-0 --- titan_90002-1: transfer/channel-0
-titan_90000-1: transfer/channel-1 --- titan_90004-1: transfer/channel-1
+titan_18889-1: transfer/channel-0 --- titan_90002-1: transfer/channel-0
+titan_18889-1: transfer/channel-1 --- titan_90004-1: transfer/channel-1
 ```
 
-That mean 90000 and 90002 have a channel connect channel-0:transfer to channel-0:transfer
-So to send token from 90000 to 90002:
+That mean 18889 and 90002 have a channel connect channel-0:transfer to channel-0:transfer
+So to send token from 18889 to 90002:
 
 ```shell
-docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes tx ft-transfer --src-chain titan_90000-1 --dst-chain titan_90002-1 --src-port transfer --src-channel channel-0 --amount 1000 --denom titan --timeout-height-offset 1000
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes tx ft-transfer --src-chain titan_18889-1 --dst-chain titan_90002-1 --src-port transfer --src-channel channel-0 --amount 1000 --denom titan --timeout-height-offset 1000
 ```
 
 The above command is not specified from address and to address. Hermes default use addresses that it controls on each chain. If you want to specify from address and to address, you can use `--key-name` and `--receiver` flag.
 
 This only use to fast test transfer. In real life, you should want to direct interact with source chain to do this. (method 2)
 
-2. Send the transaction to transfer token from 90000 to 90002 via 90000 node
+2. Send the transaction to transfer token from 18889 to 90002 via 18889 node
 
 This is how use node command cli to send a token to 90002 chain.
 
 ```shell
-docker exec -it titan-multiple-chains-with-relayer-val1-1 titand tx ibc-transfer transfer transfer channel-0 titan162k6urmsksdhej59x5y4wdh2fj4kk6035zqf99 1000titan --from val1 --keyring-backend file --keyring-dir /root/.titan/keys
+docker exec -it titan-multiple-chains-with-relayer-val1-1 titand tx ibc-transfer transfer transfer channel-0 titan162k6urmsksdhej59x5y4wdh2fj4kk6035zqf99 1000tkx --from val1 --keyring-backend file --keyring-dir /root/.titand/keys
 ```

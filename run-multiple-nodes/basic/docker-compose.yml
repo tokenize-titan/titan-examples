@@ -7,7 +7,7 @@ services:
     command: start
     image: titand:latest
     volumes:
-      - ./nodes/alice:/root/.titan
+      - ./nodes/alice:/root/.titand
     networks:
       - net-public
 
@@ -15,7 +15,7 @@ services:
     command: start
     image: titand:latest
     volumes:
-      - ./nodes/bob:/root/.titan
+      - ./nodes/bob:/root/.titand
     networks:
       - net-public
 
@@ -23,7 +23,7 @@ services:
     command: start
     image: titand:latest
     volumes:
-      - ./nodes/carol:/root/.titan
+      - ./nodes/carol:/root/.titand
     ports:
       - 26657:26657
     networks:

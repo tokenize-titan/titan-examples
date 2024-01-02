@@ -20,7 +20,7 @@ $ ./script.sh SKIP_BUILD=1
 $ docker run --rm -it --network titan-chain-basic_net-public titand:latest status --node "tcp://node-carol:26657"
 
 $ export bob=$(cat ./nodes/bob/passphrase.txt | \
-docker run --rm -i -v ./nodes/bob:/root/.titan titand:latest keys show bob --address --keyring-backend file --keyring-dir /root/.titan/keys)
+docker run --rm -i -v ./nodes/bob:/root/.titand titand:latest keys show bob --address --keyring-backend file --keyring-dir /root/.titand/keys)
 
 $ docker run --rm -it --network titan-chain-basic_net-public titand:latest q bank balances $bob --node "tcp://node-carol:26657"
 
