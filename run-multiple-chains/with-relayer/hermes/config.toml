@@ -11,7 +11,6 @@
 # Valid options are 'error', 'warn', 'info', 'debug', 'trace'.
 log_level = 'debug'
 
-
 # Specify the mode to be used by the relayer. [Required]
 [mode]
 
@@ -94,7 +93,6 @@ host = '127.0.0.1'
 # requests. Default: 3000
 port = 3000
 
-
 # The telemetry section defines parameters for Hermes' built-in telemetry capabilities.
 # https://hermes.informal.systems/telemetry.html
 [telemetry]
@@ -111,93 +109,93 @@ host = '127.0.0.1'
 port = 3001
 
 [[chains]]
-id = 'titan_90000-1'
-rpc_addr = 'http://val1:26657'
+account_prefix = 'titan'
+address_type = {derivation = 'ethermint', proto_type = {pk_type = '/ethermint.crypto.v1.ethsecp256k1.PubKey'}}
+batch_delay = '500ms'
+clock_drift = '5s'
+default_gas = 100000
+gas_multiplier = 1.2
+gas_price = {price = 1000000000, denom = 'atkx'}
 grpc_addr = 'http://val1:9090'
-websocket_addr = 'ws://val1:26657/websocket'
-rpc_timeout = '10s'
-batch_delay = '500ms'
-trusted_node = false
-account_prefix = 'titan'
+id = 'titan_18889-1'
 key_name = 'rly1'
-store_prefix = 'ibc'
-default_gas = 100000
+max_block_time = '30s'
 max_gas = 400000
-gas_price = { price = 0.001, denom = 'titan' }
-gas_multiplier = 1.1
 max_msg_num = 30
 max_tx_size = 2097152
-clock_drift = '5s'
-max_block_time = '30s'
+rpc_addr = 'http://val1:26657'
+rpc_timeout = '10s'
+store_prefix = 'ibc'
+trust_threshold = {numerator = '1', denominator = '3'}
+trusted_node = false
 trusting_period = '14days'
-trust_threshold = { numerator = '1', denominator = '3' }
-address_type = { derivation = 'cosmos' }
+websocket_addr = 'ws://val1:26657/websocket'
 
 [[chains]]
-id = 'titan_90002-1'
-rpc_addr = 'http://val2:26657'
+account_prefix = 'titan'
+address_type = {derivation = 'ethermint', proto_type = {pk_type = '/ethermint.crypto.v1.ethsecp256k1.PubKey'}}
+batch_delay = '500ms'
+clock_drift = '5s'
+default_gas = 100000
+gas_multiplier = 1.2
+gas_price = {price = 1000000000, denom = 'tkx2'}
 grpc_addr = 'http://val2:9090'
-websocket_addr = 'ws://val2:26657/websocket'
-rpc_timeout = '10s'
-batch_delay = '500ms'
-trusted_node = false
-account_prefix = 'titan'
+id = 'titan_90002-1'
 key_name = 'rly2'
-store_prefix = 'ibc'
-default_gas = 100000
+max_block_time = '30s'
 max_gas = 400000
-gas_price = { price = 0.001, denom = 'titan2' }
-gas_multiplier = 1.1
 max_msg_num = 30
 max_tx_size = 2097152
-clock_drift = '5s'
-max_block_time = '30s'
+rpc_addr = 'http://val2:26657'
+rpc_timeout = '10s'
+store_prefix = 'ibc'
+trust_threshold = {numerator = '1', denominator = '3'}
+trusted_node = false
 trusting_period = '14days'
-trust_threshold = { numerator = '1', denominator = '3' }
-address_type = { derivation = 'cosmos' }
+websocket_addr = 'ws://val2:26657/websocket'
 
 [[chains]]
-id = 'titan_90003-1'
-rpc_addr = 'http://val3:26657'
+account_prefix = 'titan'
+address_type = {derivation = 'ethermint', proto_type = {pk_type = '/ethermint.crypto.v1.ethsecp256k1.PubKey'}}
+batch_delay = '500ms'
+clock_drift = '5s'
+default_gas = 100000
+gas_multiplier = 1.2
+gas_price = {price = 1000000000, denom = 'tkx3'}
 grpc_addr = 'http://val3:9090'
-websocket_addr = 'ws://val3:26657/websocket'
-rpc_timeout = '10s'
-batch_delay = '500ms'
-trusted_node = false
-account_prefix = 'titan'
+id = 'titan_90003-1'
 key_name = 'rly3'
-store_prefix = 'ibc'
-default_gas = 100000
+max_block_time = '30s'
 max_gas = 400000
-gas_price = { price = 0.001, denom = 'titan3' }
-gas_multiplier = 1.1
 max_msg_num = 30
 max_tx_size = 2097152
-clock_drift = '5s'
-max_block_time = '30s'
+rpc_addr = 'http://val3:26657'
+rpc_timeout = '10s'
+store_prefix = 'ibc'
+trust_threshold = {numerator = '1', denominator = '3'}
+trusted_node = false
 trusting_period = '14days'
-trust_threshold = { numerator = '1', denominator = '3' }
-address_type = { derivation = 'cosmos' }
+websocket_addr = 'ws://val3:26657/websocket'
 
 [[chains]]
-id = 'titan_90004-1'
-rpc_addr = 'http://val4:26657'
-grpc_addr = 'http://val4:9090'
-websocket_addr = 'ws://val4:26657/websocket'
-rpc_timeout = '10s'
-batch_delay = '500ms'
-trusted_node = false
 account_prefix = 'titan'
-key_name = 'rly4'
-store_prefix = 'ibc'
+address_type = {derivation = 'ethermint', proto_type = {pk_type = '/ethermint.crypto.v1.ethsecp256k1.PubKey'}}
+batch_delay = '500ms'
+clock_drift = '5s'
 default_gas = 100000
+gas_multiplier = 1.2
+gas_price = {price = 1000000000, denom = 'tkx4'}
+grpc_addr = 'http://val4:9090'
+id = 'titan_90004-1'
+key_name = 'rly4'
+max_block_time = '30s'
 max_gas = 400000
-gas_price = { price = 0.001, denom = 'titan4' }
-gas_multiplier = 1.1
 max_msg_num = 30
 max_tx_size = 2097152
-clock_drift = '5s'
-max_block_time = '30s'
+rpc_addr = 'http://val4:26657'
+rpc_timeout = '10s'
+store_prefix = 'ibc'
+trust_threshold = {numerator = '1', denominator = '3'}
+trusted_node = false
 trusting_period = '14days'
-trust_threshold = { numerator = '1', denominator = '3' }
-address_type = { derivation = 'cosmos' }
+websocket_addr = 'ws://val4:26657/websocket'

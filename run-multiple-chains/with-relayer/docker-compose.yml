@@ -7,7 +7,7 @@ services:
     command: start
     image: titand:latest
     volumes:
-      - ./nodes/val1:/root/.titan
+      - ./nodes/val1:/root/.titand
     networks:
       - net-1
     healthcheck:
@@ -20,7 +20,7 @@ services:
     command: start
     image: titand:latest
     volumes:
-      - ./nodes/val2:/root/.titan
+      - ./nodes/val2:/root/.titand
     networks:
       - net-2
     healthcheck:
@@ -33,7 +33,7 @@ services:
     command: start
     image: titand:latest
     volumes:
-      - ./nodes/val3:/root/.titan
+      - ./nodes/val3:/root/.titand
     networks:
       - net-3  
     healthcheck:
@@ -46,7 +46,7 @@ services:
     command: start
     image: titand:latest
     volumes:
-      - ./nodes/val4:/root/.titan
+      - ./nodes/val4:/root/.titand
     networks:
       - net-4  
     healthcheck:

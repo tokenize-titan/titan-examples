@@ -1,7 +1,7 @@
 {
   "name": "rly4",
   "type": "local",
-  "address": "titan1yxcvjmdxz9sje89v342wrytrmg2p594a7t2q4x",
-  "pubkey": "{\"@type\":\"/cosmos.crypto.secp256k1.PubKey\",\"key\":\"A/buVZsXoVC5yrx1QAqkqhEhecotJIsbOeT056oW++AE\"}",
-  "mnemonic": "soft deputy vivid term teach clarify tank exotic solution aisle brand fold later kiwi club alley glass guide indicate green actual property palm warfare"
+  "address": "titan1aa7r2l8q5dk3p0hvapjkjpjklfw4fyrtz4wju9",
+  "pubkey": "{\"@type\":\"/ethermint.crypto.v1.ethsecp256k1.PubKey\",\"key\":\"AptBFACTojuWWDvLLfX0hdkqzfRBAmNYm+7GHL5H8abE\"}",
+  "mnemonic": "century call frog fluid elbow dumb short despair canal okay select clean weekend habit phone fun bone drama palace lava trick manage clown emerge"
 }

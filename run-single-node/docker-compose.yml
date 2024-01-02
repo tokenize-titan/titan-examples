@@ -7,7 +7,7 @@ services:
     command: start
     image: titand:latest
     volumes:
-      - ./nodes/alice:/root/.titan
+      - ./nodes/alice:/root/.titand
     ports:
       - 26657:26657
     networks:
