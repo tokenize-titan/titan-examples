@@ -31,7 +31,7 @@ rm -rf nodes
 
 ### On alice's machine
 # initialize chain
-docker run --rm -it -v ./nodes/alice:/root/.titand titand:latest init node-alice --chain-id titan_18889-1  >/dev/null
+docker run --rm -it -v ./nodes/alice:/root/.titand titand:latest init node-alice --chain-id titan_18887-1  >/dev/null
 # create keyring's passphrase
 echo -n password > ./nodes/alice/passphrase.txt
 # create account
@@ -39,7 +39,7 @@ echo $(cat ./nodes/alice/passphrase.txt)$'\n'$(cat ./nodes/alice/passphrase.txt)
 docker run --rm -i -v ./nodes/alice:/root/.titand titand:latest keys add alice --keyring-backend file --keyring-dir /root/.titand/keys --output json > ./nodes/alice/alice_plain.info
 
 ### On bob's machine
-docker run --rm -it -v ./nodes/bob:/root/.titand titand:latest init node-bob --chain-id titan_18889-1  >/dev/null
+docker run --rm -it -v ./nodes/bob:/root/.titand titand:latest init node-bob --chain-id titan_18887-1  >/dev/null
 # create keyring's passphrase
 echo -n password > ./nodes/bob/passphrase.txt
 # create account
@@ -48,7 +48,7 @@ docker run --rm -i -v ./nodes/bob:/root/.titand titand:latest keys add bob --key
 
 ### On carol's machine
 # initialize chain
-docker run --rm -it -v ./nodes/carol:/root/.titand titand:latest init node-carol --chain-id titan_18889-1  >/dev/null
+docker run --rm -it -v ./nodes/carol:/root/.titand titand:latest init node-carol --chain-id titan_18887-1  >/dev/null
 
 ### On alice's machine
 # add alice as genesis account with titan balance
@@ -57,7 +57,7 @@ docker run --rm -i -v ./nodes/alice:/root/.titand titand:latest keys show alice 
 xargs -I {} docker run --rm -i -v ./nodes/alice:/root/.titand titand:latest add-genesis-account "{}" 10000tkx
 # alice stakes titan 
 echo $(cat ./nodes/alice/passphrase.txt)$'\n'$(cat ./nodes/alice/passphrase.txt) | \
-docker run --rm -i -v ./nodes/alice:/root/.titand titand:latest gentx alice 1000tkx --keyring-backend file --keyring-dir /root/.titand/keys --chain-id titan_18889-1 >/dev/null 2>&1
+docker run --rm -i -v ./nodes/alice:/root/.titand titand:latest gentx alice 1000tkx --keyring-backend file --keyring-dir /root/.titand/keys --chain-id titan_18887-1 >/dev/null 2>&1
 
 # alice passes genesis.json to bob
 cp ./nodes/alice/config/genesis.json ./nodes/bob/config/genesis.json
@@ -69,7 +69,7 @@ docker run --rm -i -v ./nodes/bob:/root/.titand titand:latest keys show bob --ad
 xargs -I {} docker run --rm -i -v ./nodes/bob:/root/.titand titand:latest add-genesis-account "{}" 5000tkx
 # bob stakes titan
 echo $(cat ./nodes/bob/passphrase.txt)$'\n'$(cat ./nodes/bob/passphrase.txt) | \
-docker run --rm -i -v ./nodes/bob:/root/.titand titand:latest gentx bob 1000tkx --keyring-backend file --keyring-dir /root/.titand/keys --chain-id titan_18889-1 >/dev/null 2>&1
+docker run --rm -i -v ./nodes/bob:/root/.titand titand:latest gentx bob 1000tkx --keyring-backend file --keyring-dir /root/.titand/keys --chain-id titan_18887-1 >/dev/null 2>&1
 
 # bob sends his generated txs back to alice
 cp ./nodes/bob/config/gentx/gentx-* ./nodes/alice/config/gentx

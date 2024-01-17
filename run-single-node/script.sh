@@ -31,7 +31,7 @@ rm -rf nodes
 
 ### On alice's machine
 # initialize chain
-docker run --rm -it -v ./nodes/alice:/root/.titand titand:latest init node-alice --chain-id titan_18889-1 >/dev/null
+docker run --rm -it -v ./nodes/alice:/root/.titand titand:latest init node-alice --chain-id titan_18887-1 >/dev/null
 # create keyring's passphrase
 echo -n password > ./nodes/alice/passphrase.txt
 # create account
@@ -44,7 +44,7 @@ docker run --rm -i -v ./nodes/alice:/root/.titand titand:latest keys show alice 
 xargs -I {} docker run --rm -i -v ./nodes/alice:/root/.titand titand:latest add-genesis-account "{}" 10000tkx
 # alice stakes titan 
 echo $(cat ./nodes/alice/passphrase.txt)$'\n'$(cat ./nodes/alice/passphrase.txt) | \
-docker run --rm -i -v ./nodes/alice:/root/.titand titand:latest gentx alice 1000tkx --keyring-backend file --keyring-dir /root/.titand/keys --chain-id titan_18889-1 >/dev/null 2>&1
+docker run --rm -i -v ./nodes/alice:/root/.titand titand:latest gentx alice 1000tkx --keyring-backend file --keyring-dir /root/.titand/keys --chain-id titan_18887-1 >/dev/null 2>&1
 
 # alice collect all generated transactions into genesis file
 docker run --rm -i -v ./nodes/alice:/root/.titand titand:latest collect-gentxs >/dev/null 2>&1

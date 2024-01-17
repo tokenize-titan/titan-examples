@@ -29,7 +29,7 @@ $ ./build/titand --help
 rm -rf ./private/.titand
 
 # Init the home dir
-titand init demo --home ./private/.titand --chain-id titan_18889-1 
+titand init demo --home ./private/.titand --chain-id titan_18887-1 
 ```
 
 The initialization creates `.titand` directory under `private/`, which contains:
@@ -79,7 +79,7 @@ $ titand keys list --home private/.titand --keyring-backend test
 $ titand add-genesis-account alice 100000000tkx --home private/.titand --keyring-backend test
 
 # Include bootstrap transactions
-$ titand gentx alice 70000000tkx --home private/.titand --keyring-backend test --chain-id titan_18889-1
+$ titand gentx alice 70000000tkx --home private/.titand --keyring-backend test --chain-id titan_18887-1
 
 # Collect genesis transactions
 $ titand collect-gentxs --home private/.titand
@@ -109,7 +109,7 @@ Transfer `1000tkx` to `bob`:
 $ export bob=titan1zkvm385sylhksh5z4ctyzpkx7t360jzev0m5mc
 
 # Choose "yes" when prompted to sign the tx
-$ titand tx bank send $alice $bob 1000tkx --home private/.titand --keyring-backend test --chain-id titan_18889-1
+$ titand tx bank send $alice $bob 1000tkx --home private/.titand --keyring-backend test --chain-id titan_18887-1
 
 # Show transaction info
 $ titand q tx <txhash>
