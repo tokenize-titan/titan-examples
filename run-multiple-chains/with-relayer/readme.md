@@ -55,7 +55,7 @@ That mean 18887 and 90002 have a channel connect channel-0:transfer to channel-0
 So to send token from 18887 to 90002:
 
 ```shell
-docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes tx ft-transfer --src-chain titan_18887-1 --dst-chain titan_90002-1 --src-port transfer --src-channel channel-0 --amount 1000 --denom titan --timeout-height-offset 1000
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes tx ft-transfer --src-chain titan_18887-1 --dst-chain titan_90002-1 --src-port transfer --src-channel channel-0 --amount 1000000000000000000 --denom atkx --timeout-height-offset 1000
 ```
 
 The above command is not specified from address and to address. Hermes default use addresses that it controls on each chain. If you want to specify from address and to address, you can use `--key-name` and `--receiver` flag.
@@ -67,5 +67,5 @@ This only use to fast test transfer. In real life, you should want to direct int
 This is how use node command cli to send a token to 90002 chain.
 
 ```shell
-docker exec -it titan-multiple-chains-with-relayer-val1-1 titand tx ibc-transfer transfer transfer channel-0 titan162k6urmsksdhej59x5y4wdh2fj4kk6035zqf99 1000tkx --from val1 --keyring-backend file --keyring-dir /root/.titand/keys
+docker exec -it titan-multiple-chains-with-relayer-val1-1 titand tx ibc-transfer transfer transfer channel-0 titan162k6urmsksdhej59x5y4wdh2fj4kk6035zqf99 1000000000000000000atkx --from val1 --keyring-backend file --keyring-dir /root/.titand/keys
 ```

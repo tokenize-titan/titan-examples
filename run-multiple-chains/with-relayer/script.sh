@@ -45,6 +45,7 @@ docker run --rm -it -v $(pwd)/nodes/val1:/root/.titand titand:latest init val1 -
 sed -i '' '/^\[grpc\]$/,/^\[/ s/^\(address = \).*/\1\"0.0.0.0:9090\"/' $(pwd)/nodes/val1/config/app.toml
 # config config.toml
 sed -i '' '/^\[rpc\]$/,/^\[/ s/^\(laddr = \).*/\1\"tcp:\/\/0.0.0.0:26657\"/' $(pwd)/nodes/val1/config/config.toml
+sed -i '' '/^\[tx_index\]$/,/^\[/ s/^\(indexer = \).*/\1\"kv\"/' $(pwd)/nodes/val1/config/config.toml
 # create keyring's passphrase
 printf password > ./nodes/val1/passphrase.txt
 # create account
@@ -96,6 +97,7 @@ docker run --rm -it -v $(pwd)/nodes/val2:/root/.titand titand:latest init val2 -
 sed -i '' '/^\[grpc\]$/,/^\[/ s/^\(address = \).*/\1\"0.0.0.0:9090\"/' $(pwd)/nodes/val2/config/app.toml
 # config config.toml
 sed -i '' '/^\[rpc\]$/,/^\[/ s/^\(laddr = \).*/\1\"tcp:\/\/0.0.0.0:26657\"/' $(pwd)/nodes/val2/config/config.toml
+sed -i '' '/^\[tx_index\]$/,/^\[/ s/^\(indexer = \).*/\1\"kv\"/' $(pwd)/nodes/val2/config/config.toml
 # create keyring's passphrase
 printf password > ./nodes/val2/passphrase.txt
 # create account
@@ -146,6 +148,7 @@ docker run --rm -it -v $(pwd)/nodes/val3:/root/.titand titand:latest init val3 -
 sed -i '' '/^\[grpc\]$/,/^\[/ s/^\(address = \).*/\1\"0.0.0.0:9090\"/' $(pwd)/nodes/val3/config/app.toml
 # config config.toml
 sed -i '' '/^\[rpc\]$/,/^\[/ s/^\(laddr = \).*/\1\"tcp:\/\/0.0.0.0:26657\"/' $(pwd)/nodes/val3/config/config.toml
+sed -i '' '/^\[tx_index\]$/,/^\[/ s/^\(indexer = \).*/\1\"kv\"/' $(pwd)/nodes/val3/config/config.toml
 # create keyring's passphrase
 printf password > ./nodes/val3/passphrase.txt
 # create account
@@ -196,6 +199,7 @@ docker run --rm -it -v $(pwd)/nodes/val4:/root/.titand titand:latest init val4 -
 sed -i '' '/^\[grpc\]$/,/^\[/ s/^\(address = \).*/\1\"0.0.0.0:9090\"/' $(pwd)/nodes/val4/config/app.toml
 # config config.toml
 sed -i '' '/^\[rpc\]$/,/^\[/ s/^\(laddr = \).*/\1\"tcp:\/\/0.0.0.0:26657\"/' $(pwd)/nodes/val4/config/config.toml
+sed -i '' '/^\[tx_index\]$/,/^\[/ s/^\(indexer = \).*/\1\"kv\"/' $(pwd)/nodes/val4/config/config.toml
 # create keyring's passphrase
 printf password > ./nodes/val4/passphrase.txt
 # create account
@@ -243,10 +247,10 @@ cp ./hermes/rly2.json ./nodes/hermes/rly2.json
 cp ./hermes/rly3.json ./nodes/hermes/rly3.json
 cp ./hermes/rly4.json ./nodes/hermes/rly4.json
 
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:1.5.1 keys add --key-name rly1 --chain titan_18887-1 --key-file /home/hermes/.hermes/rly1.json --hd-path "m/44'/60'/0'/0/0"
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:1.5.1 keys add --key-name rly2 --chain titan_90002-1 --key-file /home/hermes/.hermes/rly2.json --hd-path "m/44'/60'/0'/0/0"
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:1.5.1 keys add --key-name rly3 --chain titan_90003-1 --key-file /home/hermes/.hermes/rly3.json --hd-path "m/44'/60'/0'/0/0"
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:1.5.1 keys add --key-name rly4 --chain titan_90004-1 --key-file /home/hermes/.hermes/rly4.json --hd-path "m/44'/60'/0'/0/0"
+docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:v1.8.0 keys add --key-name rly1 --chain titan_18887-1 --key-file /home/hermes/.hermes/rly1.json --hd-path "m/44'/60'/0'/0/0"
+docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:v1.8.0 keys add --key-name rly2 --chain titan_90002-1 --key-file /home/hermes/.hermes/rly2.json --hd-path "m/44'/60'/0'/0/0"
+docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:v1.8.0 keys add --key-name rly3 --chain titan_90003-1 --key-file /home/hermes/.hermes/rly3.json --hd-path "m/44'/60'/0'/0/0"
+docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:v1.8.0 keys add --key-name rly4 --chain titan_90004-1 --key-file /home/hermes/.hermes/rly4.json --hd-path "m/44'/60'/0'/0/0"
 
 
 #################################################################################################################################

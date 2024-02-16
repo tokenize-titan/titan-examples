@@ -57,7 +57,7 @@ services:
 
   hermes: 
     command: start
-    image: informalsystems/hermes:1.5.1
+    image: informalsystems/hermes:v1.8.0
     volumes:
       - ./nodes/hermes:/home/hermes/.hermes
     networks:
