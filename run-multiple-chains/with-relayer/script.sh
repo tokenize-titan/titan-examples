@@ -259,37 +259,37 @@ echo 'start up chain...'
 
 docker compose -f docker-compose.yml up --wait -d val1 val2 val3 val4
 
+echo 'start up relayer...'
+
+docker compose -f docker-compose.yml up -d --wait hermes  
+
 echo 'create ibc channel...'
 echo 'topology: 18887 <-> 90002 <-> 90003 <-> 90004 <-> 18887'
 
 echo 'connect 18887 to 90002...'
-docker compose run --rm -i hermes create \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
   channel --yes --a-chain titan_18887-1 --b-chain titan_90002-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
-docker compose run --rm -i hermes query \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_18887-1
 
 echo 'connect 90002 to 90003...'
-docker compose run --rm -i hermes create \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
   channel --yes --a-chain titan_90002-1 --b-chain titan_90003-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
-docker compose run --rm -i hermes query \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_90002-1
 
 echo 'connect 90003 to 90004...'
-docker compose run --rm -i hermes create \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
   channel --yes --a-chain titan_90003-1 --b-chain titan_90004-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
-docker compose run --rm -i hermes query \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_90003-1
 
 echo 'connect 90004 to 18887...'
-docker compose run --rm -i hermes create \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
   channel --yes --a-chain titan_90004-1 --b-chain titan_18887-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
-docker compose run --rm -i hermes query \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_90004-1
-
-echo 'start up relayer...'
-
-docker compose -f docker-compose.yml up -d hermes  
