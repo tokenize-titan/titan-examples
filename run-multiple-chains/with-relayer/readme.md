@@ -67,5 +67,5 @@ This only use to fast test transfer. In real life, you should want to direct int
 This is how use node command cli to send a token to 90002 chain.
 
 ```shell
-docker exec -it titan-multiple-chains-with-relayer-val1-1 titand tx ibc-transfer transfer transfer channel-0 titan162k6urmsksdhej59x5y4wdh2fj4kk6035zqf99 1000000000000000000atkx --from val1 --keyring-backend file --keyring-dir /root/.titand/keys
+docker exec -it titan-multiple-chains-with-relayer-val1-1 titand tx ibc-transfer transfer transfer channel-0 titan162k6urmsksdhej59x5y4wdh2fj4kk6035zqf99 1000000000000000000atkx --from val1 --keyring-backend file --keyring-dir /root/.titand/keys --gas-prices=1000000000atkx
 ```
