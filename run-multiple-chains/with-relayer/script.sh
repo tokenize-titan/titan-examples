@@ -43,8 +43,12 @@ echo 'setting up nodes...'
 docker run --rm -it -v $(pwd)/nodes/val1:/root/.titand titand:latest init val1 --chain-id titan_18887-1  >/dev/null
 # config app.toml
 sed -i '' '/^\[grpc\]$/,/^\[/ s/^\(address = \).*/\1\"0.0.0.0:9090\"/' $(pwd)/nodes/val1/config/app.toml
+sed -i '' '/^\[api\]$/,/^\[/ s/^\(enable = \).*/\1true/' $(pwd)/nodes/val1/config/app.toml
+sed -i '' '/^\[api\]$/,/^\[/ s/^\(swagger = \).*/\1true/' $(pwd)/nodes/val1/config/app.toml
+sed -i '' '/^\[api\]$/,/^\[/ s/^\(address = \).*/\1\"tcp:\/\/0.0.0.0:1317\"/' $(pwd)/nodes/val1/config/app.toml
 # config config.toml
 sed -i '' '/^\[rpc\]$/,/^\[/ s/^\(laddr = \).*/\1\"tcp:\/\/0.0.0.0:26657\"/' $(pwd)/nodes/val1/config/config.toml
+sed -i '' '/^\[tx_index\]$/,/^\[/ s/^\(indexer = \).*/\1\"kv\"/' $(pwd)/nodes/val1/config/config.toml
 # create keyring's passphrase
 printf password > ./nodes/val1/passphrase.txt
 # create account
@@ -96,6 +100,7 @@ docker run --rm -it -v $(pwd)/nodes/val2:/root/.titand titand:latest init val2 -
 sed -i '' '/^\[grpc\]$/,/^\[/ s/^\(address = \).*/\1\"0.0.0.0:9090\"/' $(pwd)/nodes/val2/config/app.toml
 # config config.toml
 sed -i '' '/^\[rpc\]$/,/^\[/ s/^\(laddr = \).*/\1\"tcp:\/\/0.0.0.0:26657\"/' $(pwd)/nodes/val2/config/config.toml
+sed -i '' '/^\[tx_index\]$/,/^\[/ s/^\(indexer = \).*/\1\"kv\"/' $(pwd)/nodes/val2/config/config.toml
 # create keyring's passphrase
 printf password > ./nodes/val2/passphrase.txt
 # create account
@@ -146,6 +151,7 @@ docker run --rm -it -v $(pwd)/nodes/val3:/root/.titand titand:latest init val3 -
 sed -i '' '/^\[grpc\]$/,/^\[/ s/^\(address = \).*/\1\"0.0.0.0:9090\"/' $(pwd)/nodes/val3/config/app.toml
 # config config.toml
 sed -i '' '/^\[rpc\]$/,/^\[/ s/^\(laddr = \).*/\1\"tcp:\/\/0.0.0.0:26657\"/' $(pwd)/nodes/val3/config/config.toml
+sed -i '' '/^\[tx_index\]$/,/^\[/ s/^\(indexer = \).*/\1\"kv\"/' $(pwd)/nodes/val3/config/config.toml
 # create keyring's passphrase
 printf password > ./nodes/val3/passphrase.txt
 # create account
@@ -196,6 +202,7 @@ docker run --rm -it -v $(pwd)/nodes/val4:/root/.titand titand:latest init val4 -
 sed -i '' '/^\[grpc\]$/,/^\[/ s/^\(address = \).*/\1\"0.0.0.0:9090\"/' $(pwd)/nodes/val4/config/app.toml
 # config config.toml
 sed -i '' '/^\[rpc\]$/,/^\[/ s/^\(laddr = \).*/\1\"tcp:\/\/0.0.0.0:26657\"/' $(pwd)/nodes/val4/config/config.toml
+sed -i '' '/^\[tx_index\]$/,/^\[/ s/^\(indexer = \).*/\1\"kv\"/' $(pwd)/nodes/val4/config/config.toml
 # create keyring's passphrase
 printf password > ./nodes/val4/passphrase.txt
 # create account
@@ -243,10 +250,10 @@ cp ./hermes/rly2.json ./nodes/hermes/rly2.json
 cp ./hermes/rly3.json ./nodes/hermes/rly3.json
 cp ./hermes/rly4.json ./nodes/hermes/rly4.json
 
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:1.5.1 keys add --key-name rly1 --chain titan_18887-1 --key-file /home/hermes/.hermes/rly1.json --hd-path "m/44'/60'/0'/0/0"
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:1.5.1 keys add --key-name rly2 --chain titan_90002-1 --key-file /home/hermes/.hermes/rly2.json --hd-path "m/44'/60'/0'/0/0"
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:1.5.1 keys add --key-name rly3 --chain titan_90003-1 --key-file /home/hermes/.hermes/rly3.json --hd-path "m/44'/60'/0'/0/0"
-docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:1.5.1 keys add --key-name rly4 --chain titan_90004-1 --key-file /home/hermes/.hermes/rly4.json --hd-path "m/44'/60'/0'/0/0"
+docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:v1.8.0 keys add --key-name rly1 --chain titan_18887-1 --key-file /home/hermes/.hermes/rly1.json --hd-path "m/44'/60'/0'/0/0"
+docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:v1.8.0 keys add --key-name rly2 --chain titan_90002-1 --key-file /home/hermes/.hermes/rly2.json --hd-path "m/44'/60'/0'/0/0"
+docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:v1.8.0 keys add --key-name rly3 --chain titan_90003-1 --key-file /home/hermes/.hermes/rly3.json --hd-path "m/44'/60'/0'/0/0"
+docker run --rm -i -v $(pwd)/nodes/hermes:/home/hermes/.hermes informalsystems/hermes:v1.8.0 keys add --key-name rly4 --chain titan_90004-1 --key-file /home/hermes/.hermes/rly4.json --hd-path "m/44'/60'/0'/0/0"
 
 
 #################################################################################################################################
@@ -255,37 +262,41 @@ echo 'start up chain...'
 
 docker compose -f docker-compose.yml up --wait -d val1 val2 val3 val4
 
+echo 'start up relayer...'
+
+docker compose -f docker-compose.yml up -d --wait hermes  
+
 echo 'create ibc channel...'
 echo 'topology: 18887 <-> 90002 <-> 90003 <-> 90004 <-> 18887'
 
 echo 'connect 18887 to 90002...'
-docker compose run --rm -i hermes create \
-  channel --yes --a-chain titan_18887-1 --b-chain titan_90002-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
+  channel --yes --a-chain titan_18887-1 --b-chain titan_90002-1 --a-port transfer --b-port transfer \
+  --new-client-connection --channel-version "{\"fee_version\":\"ics29-1\",\"app_version\":\"ics20-1\"}" >/dev/null 2>&1
 echo 'get channel info...'
-docker compose run --rm -i hermes query \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_18887-1
 
 echo 'connect 90002 to 90003...'
-docker compose run --rm -i hermes create \
-  channel --yes --a-chain titan_90002-1 --b-chain titan_90003-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
+  channel --yes --a-chain titan_90002-1 --b-chain titan_90003-1 --a-port transfer --b-port transfer \
+  --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
-docker compose run --rm -i hermes query \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_90002-1
 
 echo 'connect 90003 to 90004...'
-docker compose run --rm -i hermes create \
-  channel --yes --a-chain titan_90003-1 --b-chain titan_90004-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
+  channel --yes --a-chain titan_90003-1 --b-chain titan_90004-1 --a-port transfer --b-port transfer \
+  --new-client-connection --channel-version "{\"fee_version\":\"ics29-1\",\"app_version\":\"ics20-1\"}" >/dev/null 2>&1
 echo 'get channel info...'
-docker compose run --rm -i hermes query \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_90003-1
 
 echo 'connect 90004 to 18887...'
-docker compose run --rm -i hermes create \
-  channel --yes --a-chain titan_90004-1 --b-chain titan_18887-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
+  channel --yes --a-chain titan_90004-1 --b-chain titan_18887-1 --a-port transfer --b-port transfer \
+  --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
-docker compose run --rm -i hermes query \
+docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_90004-1
-
-echo 'start up relayer...'
-
-docker compose -f docker-compose.yml up -d hermes  

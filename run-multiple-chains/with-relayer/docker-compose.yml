@@ -10,6 +10,9 @@ services:
       - ./nodes/val1:/root/.titand
     networks:
       - net-1
+    expose:
+      - "26657"
+      - "1317"
     healthcheck:
         test: ["CMD", "nc", "-z", "localhost", "26657"]
         interval: 30s
@@ -57,7 +60,7 @@ services:
 
   hermes: 
     command: start
-    image: informalsystems/hermes:1.5.1
+    image: informalsystems/hermes:v1.8.0
     volumes:
       - ./nodes/hermes:/home/hermes/.hermes
     networks:
@@ -65,6 +68,9 @@ services:
       - net-2
       - net-3
       - net-4
+    expose:
+      - "3000"
+      - "3001"
     depends_on:
       val1:
         condition: service_healthy
