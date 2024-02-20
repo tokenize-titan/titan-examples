@@ -43,6 +43,9 @@ echo 'setting up nodes...'
 docker run --rm -it -v $(pwd)/nodes/val1:/root/.titand titand:latest init val1 --chain-id titan_18887-1  >/dev/null
 # config app.toml
 sed -i '' '/^\[grpc\]$/,/^\[/ s/^\(address = \).*/\1\"0.0.0.0:9090\"/' $(pwd)/nodes/val1/config/app.toml
+sed -i '' '/^\[api\]$/,/^\[/ s/^\(enable = \).*/\1true/' $(pwd)/nodes/val1/config/app.toml
+sed -i '' '/^\[api\]$/,/^\[/ s/^\(swagger = \).*/\1true/' $(pwd)/nodes/val1/config/app.toml
+sed -i '' '/^\[api\]$/,/^\[/ s/^\(address = \).*/\1\"tcp:\/\/0.0.0.0:1317\"/' $(pwd)/nodes/val1/config/app.toml
 # config config.toml
 sed -i '' '/^\[rpc\]$/,/^\[/ s/^\(laddr = \).*/\1\"tcp:\/\/0.0.0.0:26657\"/' $(pwd)/nodes/val1/config/config.toml
 sed -i '' '/^\[tx_index\]$/,/^\[/ s/^\(indexer = \).*/\1\"kv\"/' $(pwd)/nodes/val1/config/config.toml
@@ -268,28 +271,32 @@ echo 'topology: 18887 <-> 90002 <-> 90003 <-> 90004 <-> 18887'
 
 echo 'connect 18887 to 90002...'
 docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
-  channel --yes --a-chain titan_18887-1 --b-chain titan_90002-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
+  channel --yes --a-chain titan_18887-1 --b-chain titan_90002-1 --a-port transfer --b-port transfer \
+  --new-client-connection --channel-version "{\"fee_version\":\"ics29-1\",\"app_version\":\"ics20-1\"}" >/dev/null 2>&1
 echo 'get channel info...'
 docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_18887-1
 
 echo 'connect 90002 to 90003...'
 docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
-  channel --yes --a-chain titan_90002-1 --b-chain titan_90003-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
+  channel --yes --a-chain titan_90002-1 --b-chain titan_90003-1 --a-port transfer --b-port transfer \
+  --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
 docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_90002-1
 
 echo 'connect 90003 to 90004...'
 docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
-  channel --yes --a-chain titan_90003-1 --b-chain titan_90004-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
+  channel --yes --a-chain titan_90003-1 --b-chain titan_90004-1 --a-port transfer --b-port transfer \
+  --new-client-connection --channel-version "{\"fee_version\":\"ics29-1\",\"app_version\":\"ics20-1\"}" >/dev/null 2>&1
 echo 'get channel info...'
 docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_90003-1
 
 echo 'connect 90004 to 18887...'
 docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes create \
-  channel --yes --a-chain titan_90004-1 --b-chain titan_18887-1 --a-port transfer --b-port transfer --new-client-connection >/dev/null 2>&1
+  channel --yes --a-chain titan_90004-1 --b-chain titan_18887-1 --a-port transfer --b-port transfer \
+  --new-client-connection >/dev/null 2>&1
 echo 'get channel info...'
 docker exec -it titan-multiple-chains-with-relayer-hermes-1 hermes query \
   channels --show-counterparty --chain titan_90004-1
